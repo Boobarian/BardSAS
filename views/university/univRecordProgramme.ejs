@@ -1,4 +1,3 @@
-
 <% include ../partials/headerNavUniv %>
 
     <a class="btn btn-outline-secondary" href="/university/<%= idAdmin %>/<%= idUniv %>/program">Add Programme</a>
@@ -39,35 +38,14 @@
                                 <button class="btn btn-danger" type="button" onclick="validateDeleteProgram(<%= i %>)">Delete</button>
                             </form>
                         </td>
-
                     </tr>
-                </thead>
-                <tbody>
-                    <% if(programmeList.length > 0) { let i=1; %>
-                        <% programmeList.forEach(function(programme) { %>
-                            <tr>
-                                <td><%= i %></td>
-                                <td><%= programme.programmeName  %></td>
-                                <td><%= programme.description  %></td>
-                                <td><%= moment(programme.closingDate).format("D MMMM YYYY") %></td>
-                                <td>
-                                    <button type="submit" class="buttonimg">
-                                        <a href="/university/<%= idAdmin %>/edit/<%= programme._id %>" type="submit" class="tableimg">Edit</a>
-                                    </button>
-                                    <form style="margin-top: 10px;" action="/university/<%= idAdmin %>/<%= programme._id %>?_method=DELETE" method="POST">
-                                        <button type="submit" class="buttonimg"><a class="tableimg">Delete</a></button>
-                                    </form>
-                                </td>                                    
-                            </tr>
-                        <% i++; }) %>
+                    <% i++; }) %>
                         <% } else { %>
-                            <tr>
-                                <td>No Data Found</td>
+                            <tr class="table-light">
+                                <td class="text-center" colspan="5">No Data Found</td>
                             </tr>
-                    <% } %>
-                </tbody>
-            </table>
-        </aside>
-    </nav>
-</div>
-<%- include ../partials/footerSAS %>
+                            <% } %>
+        </tbody>
+    </table>
+
+    <% include ../partials/footer %>

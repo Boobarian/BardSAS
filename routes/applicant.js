@@ -2,7 +2,6 @@ const express = require('express');
 const ApplicantController = require('../controller/applicant')
 const checkAuth = require('../middleware/check-auth');
 const checkApplicant = require('../middleware/check-applicant');
-
 const router = express.Router();
 
 router.get('', checkAuth, checkApplicant, ApplicantController.viewHome);

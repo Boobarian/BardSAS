@@ -1,36 +1,39 @@
-<%- include ../partials/headerMainApplicant %>
-<div class="maindiv">
-    <nav>
-        <aside class="sideright1"><h1>Programme List</h1>
-            <!-- <div class="searchbar">
-                <input type="text" placeholder="Search" class="search" required>
-                <input type="button" value="Search" class="buttonsearch">
-            </div> -->
-            <table cellspacing='0'>
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>University Name</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% if(university.length > 0) { let i=1; %>
-                        <% university.forEach(function(univ) { %>
-                            <tr>
-                                <td><%= i %></td>
-                                <td><%= univ.universityName  %></td>
-                                <td><a href="/applicant/university/detail/<%= univ._id %>"><input type="button" value="View Programme" class="btnReview"></a></td>                                  
-                            </tr>
-                        <% i++; }) %>
-                        <% } else { %>
-                            <tr colspan="5">
-                                <td>No Data Found</td>
-                            </tr colspan="5">
-                    <% } %>
-                </tbody>
-            </table>
-        </aside>
-    </nav>
-</div>
-<%- include ../partials/footerSAS %>
+<% include ../partials/headerNavApplicant %>
+
+    <div class="row mt-4">
+        <div class="col-12 col-md-6">
+            <h4>
+                <%= programme.length > 1 ? 'List of Programs' : 'Program' %>
+            </h4>
+            <% programme.forEach(function(program) { %>
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <p class="card-text"><small class="text-muted">Closing Date: <%= moment(programme.closingDate).format("D MMMM YYYY") %></small></p>
+                        <p class="card-text">
+                            <a href="/applicant/select/<%= program._id %>" class="card-link">
+                                <%= program.programmeName %>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <% }) %>
+        </div>
+        <div class="col-12 col-md-6">
+            <h4>
+                <%= university.length > 1 ? 'List of Universities' : 'University' %>
+            </h4>
+            <% university.forEach(function(univ) { %>
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <p class="card-text">
+                            <a href="/applicant/university/detail/<%= univ._id %>">
+                                <%= univ.universityName %>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <% }) %>
+        </div>
+    </div>
+
+    <% include ../partials/footer %>

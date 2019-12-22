@@ -1,30 +1,27 @@
-<%- include ../partials/headerMainApplicant %>
-<div class="maindiv">
-    <nav>
-        <aside class="sideright1"><h1>Programme List</h1>
-            <!-- <div class="searchbar">
-                <input type="text" placeholder="Search" class="search" required>
-                <input type="button" value="Search" class="buttonsearch">
-            </div> -->
-            <table cellspacing='0'>
-                <thead>
-                    <tr>
-                        <th>University Name</th>
-                        <th>Description</th>
-                        <th>Closing Date</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><%= program.programmeName %></td>
-                        <td><%= program.description %></td>
-                        <td><%= moment(program.closingDate).format("D MMMM YYYY") %></td>
-                        <td><a href="/applicant/qualification/<%= program._id %>"><input type="button" value="Apply" class="btnReview"></a></td>                                  
-                    </tr>
-                </tbody>
-            </table>
-        </aside>
-    </nav>
-</div>
-<%- include ../partials/footerSAS %>
+<% include ../partials/headerNavApplicant %>
+
+    <div class="row">
+        <div class="col-12 col-md-8 offset-md-2">
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <%= program.programmeName %>
+                    </h5>
+                    <% if(application === null) { %>
+                        <p class="card-text">Description:
+                            <%= program.description %><br> Closing Date:
+                                <%= moment(program.closingDate).format("D MMMM YYYY") %>
+                        </p>
+                        <a href="/applicant/qualification/<%= program._id %>" type="submit" class="btn btn-primary">Apply</a>
+                        <% } else if(application.programID.equals(program._id) && application.applicantID.equals(userId)) { %>
+                            <p class="card-text">Apply Date:
+                                <%= moment(application.applicationDate).format("D MMMM YYYY") %>
+                            </p>
+                            <span class="badge badge-pill badge-<%= application.status === 'NEW' ? 'info' : application.status === 'SUCCESSFUL' ? 'success' : 'danger' %>"><%= application.status %></span>
+                            <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <% include ../partials/footer %>

@@ -14,6 +14,10 @@ var applicationSchema = new mongoose.Schema({
     applicantID: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Applicant"
+    },
+    programID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Programme"
     }
 });
 

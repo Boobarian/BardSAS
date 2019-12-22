@@ -1,5 +1,4 @@
 const express = require('express');
-
 const SasController = require('../controller/sas')
 const checkAuth = require('../middleware/check-auth');
 const checkSAS = require('../middleware/check-sas');

@@ -1,4 +1,3 @@
-
 <% include ../partials/headerNavSAS %>
 
     <a class="btn btn-outline-secondary" href="/sas/new/<%= univId %>">Add University Admin</a>
@@ -35,38 +34,14 @@
                                 <button class="btn btn-danger" type="button" onclick="validateDeleteAdminUniv(<%= i %>)">Delete</button>
                             </form>
                         </td>
-
                     </tr>
-                </thead>
-                <tbody>
-                    <% if(adminList.users.length > 0) { let i=1; %>
-                        <% adminList.users.forEach(function(admin) { %>
-                            <tr>
-                                <th><%= i %></th>
-                                <td><%= admin.name %></td>
-                                <td><%= admin.email %></td>
-                                <td>
-                                    <!-- <form action="/sas/university/admin/<%= admin._id %>/<%= adminList._id %>?_method=DELETE" method="POST">
-                                        <a href="/sas/university/admin/edit/<%= admin._id %>/<%= adminList._id %>" class="buttonimg"><img src="../Logo/Edit.png" alt="Edit" class="tableimg"></a>
-                                        <button type="submit" class="buttonimg"><img src="../Logo/Delete.png" alt="Delete" class="tableimg"></button>
-                                    </form> -->
-                                    <button type="submit" class="buttonimg">
-                                        <a href="/sas/university/admin/edit/<%= admin._id %>/<%= adminList._id %>" type="submit" class="tableimg">Edit</a>
-                                    </button>
-                                    <form style="margin-top: 10px;" action="/sas/university/admin/<%= admin._id %>/<%= adminList._id %>?_method=DELETE" method="POST">
-                                        <button type="submit" class="buttonimg"><a class="tableimg">Delete</a></button>
-                                    </form>
-                                </td>                                    
+                    <% i++; }) %>
+                        <% } else { %>
+                            <tr class="table-light">
+                                <td class="text-center" colspan="4">No Data Found</td>
                             </tr>
-                        <% i++; }) %>
-                    <% } else { %>
-                        <tr >
-                            <td  colspan="5">No Data Found</td>
-                          </tr>
-                    <% } %>
-                </tbody>
-            </table>
-        </aside>
-    </nav>
-</div>
-<%- include ../partials/footerSAS %>
+                            <% } %>
+        </tbody>
+    </table>
+
+    <% include ../partials/footer %>

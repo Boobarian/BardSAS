@@ -1,5 +1,4 @@
 const express = require('express');
-
 const UniversityController = require('../controller/university')
 const checkAuth = require('../middleware/check-auth');
 const checkAdmin = require('../middleware/check-admin');
@@ -13,7 +12,6 @@ router.get('/:idAdmin/edit/:idProgram', checkAuth, checkAdmin, UniversityControl
 router.get('/:idAdmin/review/:idProgram', checkAuth, checkAdmin, UniversityController.reviewApplication);
 router.get('/:idAdmin/:idUniv/program', checkAuth, checkAdmin, UniversityController.addProgramme);
 router.get('/:idAdmin/:idProgram/detail/:idApplication', checkAuth, checkAdmin, UniversityController.detailApplicant);
-
 
 router.post('/:idAdmin/:idUniv/add', checkAuth, checkAdmin, UniversityController.doAddProgramme);
 
