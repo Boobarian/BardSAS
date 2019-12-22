@@ -13,7 +13,8 @@ exports.viewHome = (req, res, next) => {
 
 exports.viewLogin = (req, res, next) => {
     res.render("home/loginPage", {
-        title: "Sign In | Student Application System"
+        title: "Sign In | Student Application System",
+        page: 'signin'
     });
 }
 
@@ -40,6 +41,8 @@ exports.doLogin = (req, res, next) => {
                 { expiresIn: "1h" }
             );
             req.session.idUser = fetchUser._id
+            req.session.level = fetchUser.level
+            console.log(req.session.level, fetchUser.level)
             const redirectTo = fetchUser.level === 0 ? '/applicant' : fetchUser.level === 1 ? '/university/' + fetchUser._id : '/sas';
             return res.redirect(redirectTo);
         })
@@ -47,4 +50,11 @@ exports.doLogin = (req, res, next) => {
             req.flash('error', 'Invalid authentication credentials!');
             return res.redirect('/signin');
         });
+}
+
+exports.doLogout = (req, res, next) => {
+    req.session.destroy(function(err) {
+        console.log('errLogout', err)
+        return res.redirect('/signin');
+      })
 }

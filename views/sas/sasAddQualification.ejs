@@ -1,24 +1,45 @@
-<%- include ../partials/headerMainSAS %>
-<div class="maindiv">
-    <div>
-        <div class="window">
-            <!-- <a href="#" class="closebutton" title="Close">X</a> -->
-            <h3>Add Qualification</h3>
-            <form action="/sas/add" method="POST">
-                <h4>Qualification Name</h4>
-                <input type="text" name="qualificationName" id="inputEmail3" placeholder="Name" class="inputform">
-                <h4>Minimum score</h4>
-                <input type="number" name="minimumScore" id="inputPassword3" placeholder="Minimum score" class="inputform" onkeydown='return (event.which >= 48 && event.which <= 57) || event.which == 8 || event.which == 46'>
-                <h4>Maximum Score</h4>
-                <input type="number" name="maximumScore" id="inputPassword3" placeholder="Maximum score" class="inputform" onkeydown='return (event.which >= 48 && event.which <= 57) || event.which == 8 || event.which == 46'>
-                <h4>Grade List</h4>
-                <textarea name="gradeList" id="exampleFormControlTextarea1" rows="3" placeholder="Grade List" class="inputform"></textarea>
-                <h4>Result Description</h4>
-                <textarea name="resultCalcDesc" id="exampleFormControlTextarea1" rows="3" placeholder="Result Description" class="inputform"></textarea>
-                <input type="submit" class="submitbutton" value="Submit">
-                <button class="submitbutton"><a href="/sas/maintain">Cancel</a></button>
-            </form>
+
+<% include ../partials/headerNavSAS %>
+
+    <a class="btn btn-outline-secondary" href="/sas/maintain">Back to Menu</a>
+    <h4>Input Qualification Data</h4>
+    <form id="formAddAdminQ" action="/sas/add" method="POST">
+        <div class="form-group row">
+            <label for="qualificationName" class="col-sm-2 col-form-label">Qualification Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="qualificationName" name="qualificationName" required>
+            </div>
         </div>
-    </div>
-</div>
-<%- include ../partials/footerSAS %>
+        <div class="form-group row">
+            <label for="minimumScore" class="col-sm-2 col-form-label">Minimum Score</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="minimumScore" name="minimumScore" required onkeydown='return (event.which >= 48 && event.which <= 57) || event.which == 8 || event.which == 46'>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="maximumScore" class="col-sm-2 col-form-label">Maximum Score</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="maximumScore" name="maximumScore" required onkeydown='return (event.which >= 48 && event.which <= 57) || event.which == 8 || event.which == 46'>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="gradeList" class="col-sm-2 col-form-label">Grade List</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" id="gradeList" rows="3" name="gradeList" required></textarea>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="resultCalcDesc" class="col-sm-2 col-form-label">Result Calculation Description</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" id="resultCalcDesc" rows="3" name="resultCalcDesc" required></textarea>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="button" class="btn btn-primary" onclick="validateAddAdminQ()">Submit Data</button>
+            </div>
+        </div>
+    </form>
+
+    <% include ../partials/footer %>
+

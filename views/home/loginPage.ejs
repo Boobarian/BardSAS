@@ -1,25 +1,25 @@
 <% include ../partials/header %>
 
-<div class="row justify-content-center">
-    <div class="col-12 col-md-8">
-        <div class="card card-radius text-center">
-            <div class="card-header card-header-radius bg-dark text-white">
-                <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
-            </div>
-            <div class="card-body">
-                <form class="form-signin" action="/signin" method="POST">
-                    <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>
-                    <input type="password" name="password" class="form-control" placeholder="Password" required>
-                    <div class="text-right mb-3">
-                        <a href="/student/forgot-password">Forgot Password</a>
-                    </div>
-                    <button class="btn btn-lg btn-primary btn-block btn-radius" type="submit">Sign in</button>
-                </form>
-                <p class="h5">Don't have an account?</p>
-                <a href="/student/signup">Signt Up Now</a>
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8">
+            <div class="card card-radius text-center">
+                <div class="card-header card-header-radius bg-dark text-white">
+                    <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
+                </div>
+                <div class="card-body">
+                    <form class="form-signin" action="/signin" method="POST">
+                        <input type="text" name="username" class="form-control" placeholder="Username" required autofocus onkeyup="enter_login(event)">
+                        <input type="password" name="password" class="form-control" placeholder="Password" required onkeyup="enter_login(event)">
+                        <div class="text-right mb-3">
+                            <a href="/student/forgot-password">Forgot Password</a>
+                        </div>
+                        <button class="btn btn-lg btn-primary btn-block btn-radius" type="submit">Sign in</button>
+                    </form>
+                    <p class="h5">Don't have an account?</p>
+                    <a href="/student/signup">Signt Up Now</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<% include ../partials/footer %>
+    <% include ../partials/footer %>

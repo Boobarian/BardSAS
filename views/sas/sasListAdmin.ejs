@@ -1,23 +1,41 @@
-<%- include ../partials/headerMainSAS %>
-<div class="maindiv">
-    <nav>
-        <aside class="sideleft">
-            <div><a href='/sas/new/<%= univId %>'>+ Add Admin</a></div>
-        </aside>
-    </nav>
-    <nav>
-        <aside class="sideright"><h1>University Admin List</h1>
-            <!-- <div class="searchbar">
-                <input type="text" placeholder="Search" class="search" required>
-                <input type="button" value="Search" class="buttonsearch">
-            </div> -->
-            <table cellspacing='0'>
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Action</th>
+
+<% include ../partials/headerNavSAS %>
+
+    <a class="btn btn-outline-secondary" href="/sas/new/<%= univId %>">Add University Admin</a>
+    <a class="btn btn-outline-secondary" href="/sas/register">Back to University List</a>
+    <h4>Data University Admin -
+        <%= adminList.universityName %>
+    </h4>
+    <table class="table table-hover table-striped table-bordered">
+        <thead>
+            <tr class="table-dark">
+                <th scope="col">No.</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if(adminList.users.length > 0) { let i = 1; %>
+                <% adminList.users.forEach(function(admin) { %>
+                    <tr class="table-light">
+                        <th class="text-center" scope="row">
+                            <%= i %>
+                        </th>
+                        <td>
+                            <%= admin.name %>
+                        </td>
+                        <td>
+                            <%= admin.email %>
+                        </td>
+                        <td>
+                            <form id="formDeleteAdminUniv<%= i %>" class="form-inline" action="/sas/university/admin/<%= admin._id %>/<%= adminList._id %>?_method=DELETE" method="POST">
+                                <a href="/sas/university/admin/reset/<%= admin._id %>/<%= adminList._id %>" class="btn btn-warning mr-3" type="submit">Reset Password</a>
+                                <a href="/sas/university/admin/edit/<%= admin._id %>/<%= adminList._id %>" class="btn btn-warning mr-3" type="submit">Edit</a>
+                                <button class="btn btn-danger" type="button" onclick="validateDeleteAdminUniv(<%= i %>)">Delete</button>
+                            </form>
+                        </td>
+
                     </tr>
                 </thead>
                 <tbody>

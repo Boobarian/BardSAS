@@ -1,16 +1,19 @@
 const express = require('express');
-const ApplicantController = require('../controllers/applicant')
+const ApplicantController = require('../controller/applicant')
+const checkAuth = require('../middleware/check-auth');
+const checkApplicant = require('../middleware/check-applicant');
+
 const router = express.Router();
 
-router.get('', ApplicantController.viewHome);
+router.get('', checkAuth, checkApplicant, ApplicantController.viewHome);
 router.get('/list', ApplicantController.viewProgramList);
-router.get('/apply', ApplicantController.applyProgramme);
-router.get('/select/:idProgram', ApplicantController.selectProgramme);
-router.get('/qualification/:idProgram', ApplicantController.viewQualification);
-router.get('/new-qualification/:idProgram', ApplicantController.addQualification);
-router.get('/university/detail/:idUniv', ApplicantController.viewProgram);
+router.get('/apply', checkAuth, checkApplicant, ApplicantController.applyProgramme);
+router.get('/select/:idProgram', checkAuth, checkApplicant, ApplicantController.selectProgramme);
+router.get('/qualification/:idProgram', checkAuth, checkApplicant, ApplicantController.viewQualification);
+router.get('/new-qualification/:idProgram', checkAuth, checkApplicant, ApplicantController.addQualification);
+router.get('/university/detail/:idUniv', checkAuth, checkApplicant, ApplicantController.viewProgram);
 
-router.post('/qualification/:idProgram', ApplicantController.doAddQualification);
-router.post('/submit/:idProgram/:idQualification', ApplicantController.doAddApplication);
+router.post('/qualification/:idProgram', checkAuth, checkApplicant, ApplicantController.doAddQualification);
+router.post('/submit/:idProgram/:idQualification', checkAuth, checkApplicant, ApplicantController.doAddApplication);
 
 module.exports = router;

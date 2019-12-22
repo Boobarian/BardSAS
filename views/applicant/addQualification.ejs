@@ -1,27 +1,46 @@
-<%- include ../partials/headerMainSAS %>
-<div class="maindiv">
-    <div>
-        <div class="window">
-            <!-- <a href="#" class="closebutton" title="Close">X</a> -->
-            <h3>Add Qualification</h3>
-            <form action="/applicant/qualification/<%= programId %>" method="POST">
-                <h4>Qualification Name</h4>
-                <select class="inputform" name="qualificationName" id="qualificationName" required>
+
+<% include ../partials/headerNavApplicant %>
+
+    <a class="btn btn-outline-secondary" href="/applicant/qualification/<%= programId %>">Back to Qaulification List</a>
+    <h4>Input Qualification Data</h4>
+    <form id="formAddQualification" action="/applicant/qualification/<%= programId %>" method="POST">
+        <div class="form-group row">
+            <label for="qualificationName" class="col-sm-2 col-form-label">Qualification Name</label>
+            <div class="col-sm-10">
+                <select class="custom-select" name="qualificationName" id="qualificationName" required>
+
                     <option value="" selected hidden>Select Qualification Name</option>
                     <% qualification.forEach(function(qualic) { %>
                             <option value="<%= qualic.qualificationName %>"><%= qualic.qualificationName %></option>
                     <% }) %>
                 </select>
-                <h4>Subject Name</h4>
-                <input type="text" name="subjectName" id="subjectName" placeholder="Subject Name" class="inputform">
-                <h4>Grade</h4>
-                <input type="text" name="grade" id="grade" placeholder="Grade" class="inputform">
-                <h4>Score</h4>
-                <input name="score" id="grade" placeholder="Grade" class="inputform" onkeydown='return (event.which >= 48 && event.which <= 57) || event.which == 8 || event.which == 46'>
-                <button type="submit" class="submitbutton">Submit</button>
-                <button type="submit" class="submitbutton" ><a href="/applicant/qualification/<%= programId %>">Cancel</a></button>
-            </form>
+
+            </div>
         </div>
-    </div>
-</div>
-<%- include ../partials/footerSAS %>
+        <div class="form-group row">
+            <label for="subjectName" class="col-sm-2 col-form-label">Subject Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="subjectName" name="subjectName" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="grade" class="col-sm-2 col-form-label">Grade</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="grade" name="grade" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="score" class="col-sm-2 col-form-label">Score</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="score" name="score" required onkeydown='return (event.which >= 48 && event.which <= 57) || event.which == 8 || event.which == 46'>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="button" class="btn btn-primary" onclick="validateAddQualification()">Submit Data</button>
+            </div>
+        </div>
+    </form>
+
+    <% include ../partials/footer %>
+

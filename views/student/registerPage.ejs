@@ -1,19 +1,35 @@
-<%- include ../partials/headerHome %>
-<form action="/student/signup" method="POST">
-    <h2>Sign Up</h2>
-    <input type="text" name="name" placeholder="Full Name" required>
-    <input type="text" name="username" placeholder="Username" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="password" name="password" placeholder="Password" required>
-    <select name="idType" id="idType" aria-placeholder="id type" class="select">
-        <option>MyKad</option>
-        <option>Passport</option>
-    </select>
-    <input type="number" name="idNumber" placeholder="Id number" required>
-    <input type="number" name="mobileNo" placeholder="Mobile Number" required>
-    <input type="date" name="birthdate" placeholder="Date Of Birth" required><br><br>
-    <a><input type="submit" value="Sign Up"></a><br><br>
-    <br><br><br><br><br>
-    Already have an account?<a href="/signin">&nbsp; Login</a>
-</form>
-<%- include ../partials/footerHome %>
+
+<% include ../partials/header %>
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8">
+            <div class="card card-radius text-center">
+                <div class="card-header card-header-radius bg-dark text-white">
+                    <h1 class="h3 mb-3 font-weight-normal">Sign Up</h1>
+                </div>
+                <div class="card-body">
+                    <form id="formRegister" class="form-signin" action="/student/signup" method="POST">
+                        <input id="name" type="text" name="name" class="form-control" placeholder="Full Name" required>
+                        <select id="idType" class="custom-select" name="idType" required>
+                            <option value="" selected hidden>Select ID Type</option>
+                            <option value="1">MyKad</option>
+                            <option value="2">Passport</option>
+                        </select>
+                        <input type="text" id="idNumber" name="idNumber" class="form-control" placeholder="ID Number" required onkeydown='return (event.which >= 48 && event.which <= 57) || event.which == 8 || event.which == 46'>
+                        <input type="text" id="birthdate" name="birthdate" class="form-control" placeholder="Date of Birth" onkeydown="event.preventDefault()" required>
+                        <input type="text" id="mobileNo" name="mobileNo" class="form-control" placeholder="Mobile Number" onkeydown='return (event.which >= 48 && event.which <= 57) || event.which == 8 || event.which == 46' required>
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Username" required>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Email" required>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                        <input type="password" id="rePassword" name="rePassword" class="form-control" placeholder="Re-Type Password" required>
+                        <button class="btn btn-lg btn-primary btn-block btn-radius" type="button" onclick="validateRegister()">Sign up</button>
+                    </form>
+                    <p class="h5">Have an account?</p>
+                    <a href="/signin">Sign In Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <% include ../partials/footer %>
+

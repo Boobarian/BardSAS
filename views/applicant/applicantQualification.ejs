@@ -1,53 +1,28 @@
-<%- include ../partials/headerMainApplicant %>
-<div class="maindiv">
-    <nav>
-        <aside class="sideleft">
-            <div><a href="/applicant/new-qualification/<%= programId %>">+ Add Qualification</a></div>
-        </aside>
-    </nav>
-    <nav>
-        <aside class="sideright"><h1>Applicant Qualification List</h1>
-            <!-- <div class="searchbar">
-                <input type="text" placeholder="Search" class="search" required>
-                <input type="button" value="Search" class="buttonsearch">
-            </div> -->
-            <table cellspacing='0'>
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Qualification Name</th>
-                        <th>Subject Name</th>
-                        <th>Grade</th>
-                        <th>Score</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <% if(qualification.length > 0) { let i=1; %>
-                            <% qualification.forEach(function(qualific) { %>
-                                <tr>
-                                    <td><%= i %></td>
-                                    <td><%= qualific.qualificationName %></td>
-                                    <td><%= qualific.subjectName %></td>
-                                    <td><%= qualific.grade %></td>
-                                    <td><%= qualific.score %></td>
-                                    <td>
-                                        <form action="/applicant/submit/<%= programId %>/<%= qualific._id %>" method="POST">
-                                            <input type="submit" value="Use Qualification" class="btnReview">
-                                        </form>
-                                    </td>                                  
-                                </tr>
-                            <% i++; }) %>
-                            <% } else { %>
-                                <tr colspan="5">
-                                    <td>No Data Found</td>
-                                </tr colspan="5">
-                        <% } %>
-                    </tr>
-                </tbody>
-            </table>
-        </aside>
-    </nav>
-</div>
-<%- include ../partials/footerSAS %>
+
+<% include ../partials/headerNavApplicant %>
+
+    <a class="btn btn-outline-secondary" href="/applicant/new-qualification/<%= programId %>">Add Qualification</a>
+    <div class="row">
+        <div class="col-12 col-md-8 offset-md-2">
+            <% qualification.forEach(function(qualific) { %>
+                <div class="card mt-4 mx-2">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= qualific.qualificationName %>
+                        </h5>
+                        <p class="card-text">Subject Name:
+                            <%= qualific.subjectName %><br> Grade:
+                                <%= qualific.grade %><br> Score:
+                                    <%= qualific.score %>
+                        </p>
+                        <form id="formUseQualification" action="/applicant/submit/<%= programId %>/<%= qualific._id %>" method="POST">
+                            <button type="button" class="btn btn-primary" onclick="useQualification()">Use this Qualification</button>
+                        </form>
+                    </div>
+                </div>
+                <% }) %>
+        </div>
+    </div>
+
+    <% include ../partials/footer %>
+

@@ -1,48 +1,50 @@
-<%- include ../partials/headerMainSAS %>
-<div class="maindiv">
-    <nav>
-        <aside class="sideleft">
-            <div><a href="/sas/add">+ Add Qualification</a></div>
-        </aside>
-    </nav>
-    <nav>
-        <aside class="sideright"><h1>Qualification List</h1>
-            <!-- <div class="searchbar">
-                <input type="text" placeholder="Search" class="search" required>
-                <input type="button" value="Search" class="buttonsearch">
-            </div> -->
-            <table cellspacing='0'>
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Qualification Name</th>
-                        <th>Maximum Score</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% if(qualificationList.length > 0) { let i=1; %>
-                        <% qualificationList.forEach(function(qualification) { %>
-                            <tr>
-                                <th><%= i %></th>
-                                <td><%= qualification.qualificationName %></td>
-                                <td><%= qualification.maximumScore %></td>
-                                <td>
-                                    <form action="/sas/<%= qualification._id %>?_method=DELETE" method="POST">
-                                        <a href="/sas/edit/<%= qualification._id %>" type="submit" class="buttonimg"><img src="../Logo/Edit.png" alt="Edit" class="tableimg"></a>
-                                        <button type="submit" class="buttonimg"><a><img src="../Logo/Delete.png" alt="Delete" class="tableimg"></a></button>
-                                    </form>
-                                </td>                                    
-                            </tr>
+
+<% include ../partials/headerNavSAS %>
+
+    <a class="btn btn-outline-secondary" href="/sas/add">Add Qualification</a>
+    <div class="table-responsive">
+        <table class="table table-hover table-striped table-bordered">
+            <thead>
+                <tr class="table-dark">
+                    <th scope="col">No.</th>
+                    <th scope="col">Qualification Name</th>
+                    <th scope="col">Calculation of Overall Result</th>
+                    <th scope="col">Grade List</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if(qualificationList.length > 0) { let i=1; %>
+                    <% qualificationList.forEach(function(qualification) { %>
+                        <tr class="table-light">
+                            <th class="text-center" scope="row">
+                                <%= i %>
+                            </th>
+                            <td>
+                                <%= qualification.qualificationName %>
+                            </td>
+                            <td>
+                                <%= qualification.resultCalcDesc %>
+                            </td>
+                            <td>
+                                <%= qualification.gradeList %>
+                            </td>
+                            <td class="text-center">
+                                <form id="formDeleteMaintain<%= i %>" class="form-inline" action="/sas/<%= qualification._id %>?_method=DELETE" method="POST">
+                                    <a href="/sas/edit/<%= qualification._id %>" class="btn btn-warning mr-3" type="submit">Edit</a>
+                                    <button class="btn btn-danger" type="button" onclick="validateDeleteMaintain(<%= i %>)">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
                         <% i++; }) %>
-                    <% } else { %>
-                        <tr >
-                            <td  colspan="5">No Data Found</td>
-                          </tr>
-                    <% } %>
-                </tbody>
-            </table>
-        </aside>
-    </nav>
-</div>
-<%- include ../partials/footerSAS %>
+                            <% } else { %>
+                                <tr class="table-light">
+                                    <td class="text-center" colspan="5">No Data Found</td>
+                                </tr>
+                                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+    <% include ../partials/footer %>
+

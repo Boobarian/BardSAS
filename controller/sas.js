@@ -8,7 +8,8 @@ const User = require('../models/user');
 
 exports.viewHome = (req, res, next) => {
     res.render("sas/sasHome", {
-        title: "SAS Home | Student Application System"
+        title: "SAS Home | Student Application System",
+        page: 'sas-home'
     });
 }
 
@@ -22,14 +23,16 @@ exports.viewMaintain = (req, res, next) => {
         res.render("sas/sasMaintain", {
             title: "SAS Maintain Qualification | Student Application System",
             page: 'maintain',
-            qualificationList: fetchPost
+            qualificationList: fetchPost,
+            page: 'sas-maintain'
         });
     }).catch(err => {
         req.flash('error', 'Cannot load Qualification List, ' + err)
         res.render("sas/sasMaintain", {
             title: "SAS Maintain Qualification | Student Application System",
             page: 'maintain',
-            qualificationList: []
+            qualificationList: [],
+            page: 'sas-maintain'
         });
     })
     
@@ -37,7 +40,17 @@ exports.viewMaintain = (req, res, next) => {
 
 exports.addQualification = (req, res, next) => {
     res.render("sas/sasAddQualification", {
-        title: "SAS Maintain Qualification | Student Application System"
+        title: "SAS Maintain Qualification | Student Application System",
+        page: 'sas-maintain'
+    });
+}
+
+exports.resetAdminUniversity = (req, res, next) => {
+    res.render("sas/sasResetAdminUniversity", {
+        title: "SAS Register University | Student Application System",
+        page: 'sas-register',
+        univId: req.params.idUniv,
+        adminId: req.params.idAdmin
     });
 }
 
@@ -48,20 +61,20 @@ exports.editQualification = (req, res, next) => {
             res.render("sas/sasEditQualification", {
                 title: "SAS Maintain Qualification | Student Application System",
                 qualification: post,
-                page: 'maintain'
+                page: 'sas-maintain'
             });
         } else {
             res.render("sas/sasEditQualification", {
                 title: "SAS Maintain Qualification | Student Application System",
                 qualification: null,
-                page: 'maintain'
+                page: 'sas-maintain'
             });
         }
     }).catch(err => {
         res.render("sas/sasEditQualification", {
             title: "SAS Maintain Qualification | Student Application System",
             qualification: null,
-            page: 'maintain'
+            page: 'sas-maintain'
         });
     })
 }
@@ -73,14 +86,14 @@ exports.editUniversity = (req, res, next) => {
             res.render("sas/sasEditUniversity", {
                 title: "SAS Register University | Student Application System",
                 university: post,
-                page: 'university',
+                page: 'sas-register',
                 univId: id
             });
         } else {
             res.render("sas/sasEditUniversity", {
                 title: "SAS Register University | Student Application System",
                 university: null,
-                page: 'university',
+                page: 'sas-register',
                 univId: id
             });
         }
@@ -88,7 +101,7 @@ exports.editUniversity = (req, res, next) => {
         res.render("sas/sasEditUniversity", {
             title: "SAS Register University | Student Application System",
             university: null,
-            page: 'university',
+            page: 'sas-register',
             univId: id
         });
     })
@@ -103,14 +116,14 @@ exports.registerUniversity = (req, res, next) => {
     }).then(count => {
         res.render("sas/sasRegisterUniversity", {
             title: "SAS Register University | Student Application System",
-            page: 'university',
+            page: 'sas-register',
             universityList: fetchPost
         });
     }).catch(err => {
         req.flash('error', 'Cannot load University List, ' + err)
         res.render("sas/sasMaintain", {
             title: "SAS Register University | Student Application System",
-            page: 'university',
+            page: 'sas-register',
             universityList: []
         });
     })
@@ -119,6 +132,7 @@ exports.registerUniversity = (req, res, next) => {
 exports.addNewUniversity = (req, res, next) => {
     res.render("sas/sasAddUniversity", {
         title: "SAS Register University | Student Application System",
+        page: 'sas-register',
         univId: req.params.id
     });
 }
@@ -130,7 +144,7 @@ exports.viewAdminList = (req, res, next) => {
             req.flash('error', 'Something went wrong, ' + err);
             res.render("sas/sasListAdmin", {
                 title: "SAS Register University | Student Application System",
-                page: 'university',
+                page: 'sas-register',
                 adminList: [],
                 univId: req.params.id
             }); 
@@ -138,7 +152,7 @@ exports.viewAdminList = (req, res, next) => {
             console.log('result', result)
             res.render("sas/sasListAdmin", {
                 title: "SAS Register University | Student Application System",
-                page: 'university',
+                page: 'sas-register',
                 adminList: result,
                 univId: req.params.id
             });
@@ -192,7 +206,8 @@ exports.doEditQualification = (req, res, next) => {
 exports.doDeleteQualification = (req, res, next) => {
     Qualification.deleteOne({_id: req.params.id})
     .then(result => {
-        if(result.deleteCount > 0) {
+        console.log(result)
+        if(result.deletedCount > 0) {
             req.flash('success', 'Succesfully delete data');
             res.redirect('/sas/maintain');
         } else {
@@ -237,7 +252,22 @@ exports.doEditUniversity = (req, res, next) => {
     });
 }
 
-
+exports.doDeleteUniversity = (req, res, next) => {
+    University.deleteOne({_id: req.params.id})
+    .then(result => {
+        if(result.deletedCount > 0) {
+            req.flash('success', 'Succesfully delete data');
+            res.redirect('/sas/register');
+        } else {
+            req.flash('error', 'Something went wrong, ');
+            res.redirect('/sas/register');
+        }
+    })
+    .catch(err => {
+        req.flash('error', 'Something went wrong, ' + err);
+        res.redirect('/sas/register');
+    })
+}
 
 exports.doAddAdminUniversity = (req, res, next) => {
     University.findById(req.params.id, function(err, university) {
@@ -281,14 +311,14 @@ exports.editAdminUniversity = (req, res, next) => {
             res.render("sas/sasEditAdminUniversity", {
                 title: "SAS Register University | Student Application System",
                 users: post,
-                page: 'university',
+                page: 'sas-register',
                 univId: req.params.idUniv
             });
         } else {
             res.render("sas/sasEditAdminUniversity", {
                 title: "SAS Register University | Student Application System",
                 university: null,
-                page: 'university',
+                page: 'sas-register',
                 univId: req.params.idUniv
             });
         }
@@ -296,13 +326,50 @@ exports.editAdminUniversity = (req, res, next) => {
         res.render("sas/sasEditAdminUniversity", {
             title: "SAS Register University | Student Application System",
             university: null,
-            page: 'university',
+            page: 'sas-register',
             univId: req.params.idUniv
         });
     })
 }
 
+exports.doEditAdminUniversity = (req, res, next) => {
+    User.updateOne({_id: req.params.idAdmin}, {$set: {
+        username: req.body.username,
+        name: req.body.name,
+        email: req.body.email
+    }}).then(result => {
+        if(result.n > 0) {
+            req.flash('success', 'Succesfully edit data');
+            res.redirect('/sas/university/admin/' + req.params.idUniv);
+        } else {
+            req.flash('error', 'Something went wrong, ');
+            res.redirect('/sas/university/admin/edit/' + req.params.idAdmin + '/' + req.params.idUniv);
+        }
+    }).catch(err => {
+        req.flash('error', 'Something went wrong, ' + err);
+        res.redirect('/sas/university/admin/edit/' + req.params.idAdmin + '/' + req.params.idUniv);
+    });
+}
 
+exports.doResetAdminUniversity = (req, res, next) => {
+    bcrypt.hash(req.body.password, 10)
+    .then(hash => {
+        User.updateOne({_id: req.params.idAdmin}, {$set: {
+            password: hash,
+        }}).then(result => {
+            if(result.n > 0) {
+                req.flash('success', 'Succesfully edit data');
+                res.redirect('/sas/university/admin/' + req.params.idUniv);
+            } else {
+                req.flash('error', 'Something went wrong, ');
+                res.redirect('/sas/university/admin/reset/' + req.params.idAdmin + '/' + req.params.idUniv);
+            }
+        }).catch(err => {
+            req.flash('error', 'Something went wrong, ' + err);
+            res.redirect('/sas/university/admin/reset/' + req.params.idAdmin + '/' + req.params.idUniv);
+        });
+    });
+}
 
 exports.doDeleteAdminUniversity = (req, res, next) => {
     University.findById(req.params.idUniv, function(err, university) {

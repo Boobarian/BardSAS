@@ -7,7 +7,8 @@ const Applicant = require('../models/applicant');
 
 exports.viewRegister = (req, res, next) => {
     res.render("student/registerPage", {
-        title: "Sign Up | Student Application System"
+        title: "Sign Up | Student Application System",
+        page: 'signup'
     });
 }
 

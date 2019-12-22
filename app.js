@@ -44,4 +44,10 @@ app.use('/sas/', sasRoutes);
 app.use('/university/', universityRoutes);
 app.use('/applicant/', applicantRoutes);
 
+
+app.get('*', function(req, res){
+    res.send("404 Page Not Found!")
+})
+
 module.exports = app;
+

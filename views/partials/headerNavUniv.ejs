@@ -25,22 +25,40 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/university/<%= idAdmin %>">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'admin-home' ? 'active' : '' %>" href="/university/<%= idAdmin %>">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/university/<%= idAdmin %>/record">Record Programme</a>
+                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'admin-program' ? 'active' : '' %>" href="/university/<%= idAdmin %>/record">Record Programme</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/university/<%= idAdmin %>/review">Review Application</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/signin">Log Out</a>
+                        <a class="nav-link" href="/logout">Log Out</a>
                     </li>
                 </ul>
             </div>
         </nav>
     </header>
     <!-- End of Header -->
+
+    <!-- Alert -->
+    <div class="container">
+        <% if(error && error.length > 0){ %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong><%= error %></strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <% } if(success && success.length > 0){ %>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong><%= success %></strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <% } %>
+    </div>
+    <!-- End Alert -->
+
     <!-- Start of Side Bar -->
     <main role="main" class="flex-shrink-0 mb-5">
         <div class="container">

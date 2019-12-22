@@ -1,24 +1,45 @@
-<%- include ../partials/headerMainUniversity %>
-<div class="maindiv">
-    <nav>
-        <aside class="sideleft">
-            <div><a href="/university/<%= idAdmin %>/<%= idUniv %>/program">+ Record Programme</a></div>
-        </aside>
-    </nav>
-    <nav>
-        <aside class="sideright"><h1>Programme List</h1>
-            <!-- <div class="searchbar">
-                <input type="text" placeholder="Search" class="search" required>
-                <input type="button" value="Search" class="buttonsearch">
-            </div> -->
-            <table cellspacing='0'>
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Programme Name</th>
-                        <th>Description</th>
-                        <th>Closing Date</th>
-                        <th>Action</th>
+
+<% include ../partials/headerNavUniv %>
+
+    <a class="btn btn-outline-secondary" href="/university/<%= idAdmin %>/<%= idUniv %>/program">Add Programme</a>
+    <table class="table table-hover table-striped table-bordered">
+        <thead>
+            <tr class="table-dark">
+                <th scope="col">ID</th>
+                <th scope="col">Programme Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Closing Date</th>
+                <th scope="col">Applicants</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if(programmeList.length > 0) { let i=1; %>
+                <% programmeList.forEach(function(programme) { %>
+                    <tr class="table-light">
+                        <th scope="row">
+                            <%= i %>
+                        </th>
+                        <td>
+                            <%= programme.programmeName  %>
+                        </td>
+                        <td>
+                            <%= programme.description  %>
+                        </td>
+                        <td>
+                            <%= moment(programme.closingDate).format("D MMMM YYYY")  %>
+                        </td>
+                        <td>
+                            <%= programme.countApplicant  %>
+                        </td>
+                        <td class="text-center">
+                            <form id="formDeleteProgram<%= i %>" class="form-inline" action="/university/<%= idAdmin %>/<%= programme._id %>?_method=DELETE" method="POST">
+                                <a href="/university/<%= idAdmin %>/review/<%= programme._id %>" class="btn btn-info mr-3" type="submit">Applicant</a>
+                                <a href="/university/<%= idAdmin %>/edit/<%= programme._id %>" class="btn btn-warning mr-3" type="submit">Edit</a>
+                                <button class="btn btn-danger" type="button" onclick="validateDeleteProgram(<%= i %>)">Delete</button>
+                            </form>
+                        </td>
+
                     </tr>
                 </thead>
                 <tbody>

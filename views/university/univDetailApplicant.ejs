@@ -1,0 +1,102 @@
+<% include ../partials/headerNavUniv %>
+
+    <h4>Applicant ID</h4>
+    <table class="table mb-3">
+        <tbody>
+            <tr class="table-light">
+                <td>Full Name</td>
+                <td>:</td>
+                <td>
+                    <%= applications.userName %>
+                </td>
+            </tr>
+            <tr class="table-light">
+                <td>ID Type / ID Number</td>
+                <td>:</td>
+                <td>
+                    <% console.log(applications.IDType === '1', applications.IDType === '2') %>
+                        <%= applications.IDType === '1' ? 'MyKad' : 'Passport' %> /
+                            <%= applications.IDNumber %>
+                </td>
+            </tr>
+            <tr class="table-light">
+                <td>Date of Birth</td>
+                <td>:</td>
+                <td>
+                    <%= moment(applications.dateOfBirth).format("D MMMM YYYY") %>
+                </td>
+            </tr>
+            <tr class="table-light">
+                <td>Mobile Number</td>
+                <td>:</td>
+                <td>
+                    <%= applications.mobileNo %>
+                </td>
+            </tr>
+            <tr class="table-light">
+                <td>Email</td>
+                <td>:</td>
+                <td>
+                    <%= applications.email %>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>Applicant Qualification</h4>
+    <table class="table mb-3">
+        <thead>
+            <tr class="table-light">
+                <th scope="col">Qualification Name</th>
+                <th scope="col">Subject Name</th>
+                <th scope="col">Grade</th>
+                <th scope="col">Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="table-light">
+                <td>
+                    <%= applications.qualificationName %>
+                </td>
+                <td>
+                    <%= applications.subjectName %>
+                </td>
+                <td>
+                    <%= applications.grade %>
+                </td>
+                <td>
+                    <%= applications.score %>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="row">
+        <div class="col-12 col-md-10 col-lg-6">
+            <h4>Qualification Result</h4>
+            <form id="formResultApplicant" action="/university/<%= idAdmin %>/<%= idProgram %>/detail/<%= idApplication %>?_method=PUT" method="POST">
+                <div class="form-group">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="applicationStatus" id="inlineRadio1" value="NEW" <%=applications.status==='NEW' ? 'checked' : '' %>>
+                        <label class="form-check-label" for="inlineRadio1">NEW</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="applicationStatus" id="inlineRadio2" value="SUCCESSFUL" <%=applications.status==='SUCCESSFUL' ? 'checked' : '' %>>
+                        <label class="form-check-label" for="inlineRadio2">SUCCESSFUL</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="applicationStatus" id="inlineRadio3" value="UNSUCCESSFUL" <%=applications.status==='UNSUCCESSFUL' ? 'checked' : '' %>>
+                        <label class="form-check-label" for="inlineRadio3">UNSUCCESSFUL</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-12 mx-auto">
+                        <button type="button" class="btn btn-success" onclick="validateResultApplicant()">Save Data</button>
+                        <a href="/university/<%= idAdmin %>/review/<%= idProgram %>" class="btn btn-danger">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <% include ../partials/footer %>

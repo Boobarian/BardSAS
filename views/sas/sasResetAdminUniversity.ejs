@@ -1,0 +1,25 @@
+<% include ../partials/headerNavSAS %>
+
+    <a class="btn btn-outline-secondary" href="/sas/university/admin/<%= univId %>">Back to Menu</a>
+    <h4>Update Data Uniersity Admin</h4>
+    <form id="formReset" action="/sas/university/admin/reset/<%= adminId %>/<%= univId %>?_method=PUT" method=POST>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-4 col-form-label">New Password</label>
+            <div class="col-sm-8">
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputPassword3" class="col-sm-4 col-form-label">Re-Type New Password</label>
+            <div class="col-sm-8">
+                <input type="password" class="form-control" id="rePassword" name="rePassword" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-8">
+                <button type="button" class="btn btn-primary" onclick="validatePassword()">Submit</button>
+            </div>
+        </div>
+    </form>
+
+    <% include ../partials/footer %>
